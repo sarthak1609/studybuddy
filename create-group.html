@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyBuddy · Create Group</title>
+    
+    <!-- Standard Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+</head>
+<body class="bg-white text-slate-900 antialiased" data-page="create-group">
+
+<div class="min-h-screen flex flex-col md:flex-row">
+
+    <!-- Sidebar / Nav -->
+    <aside class="w-full md:w-64 bg-white border-r border-slate-200 flex-shrink-0">
+        <div class="p-6 h-full flex flex-col justify-between">
+            <div>
+                <!-- Logo -->
+                <div class="flex items-center gap-3 mb-8">
+                    <div class="h-10 w-10 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold">SB</div>
+                    <div>
+                        <h1 class="font-bold text-lg">StudyBuddy</h1>
+                        <p class="text-xs text-slate-500">Connected campuses</p>
+                    </div>
+                </div>
+
+                <!-- Navigation -->
+                <nav class="space-y-1">
+                    <a href="dashboard.html" data-nav="dashboard" class="block px-3 py-2 rounded-md text-slate-600 hover:bg-slate-50 hover:text-indigo-600 transition">Dashboard</a>
+                    <a href="my-groups.html" data-nav="my-groups" class="block px-3 py-2 rounded-md text-slate-600 hover:bg-slate-50 hover:text-indigo-600 transition">My Groups</a>
+                    <a href="groups.html" data-nav="groups" class="block px-3 py-2 rounded-md text-slate-600 hover:bg-slate-50 hover:text-indigo-600 transition">Join Groups</a>
+                    <a href="create-group.html" data-nav="create-group" class="block px-3 py-2 rounded-md bg-indigo-50 text-indigo-700 font-medium">Create Group</a>
+                    <a href="profile.html" data-nav="profile" class="block px-3 py-2 rounded-md text-slate-600 hover:bg-slate-50 hover:text-indigo-600 transition">Profile</a>
+                </nav>
+            </div>
+
+            <button id="signOutButton" onclick="logout()" class="mt-6 w-full text-left px-3 py-2 text-sm text-slate-500 hover:text-slate-800 transition">
+                Sign out
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-6 md:p-12 max-w-3xl">
+        <header class="mb-8">
+            <h2 class="text-2xl font-bold text-slate-900">Create a Group</h2>
+            <p class="text-slate-600 mt-1">Set the vibe, add tags, and start collaborating.</p>
+        </header>
+
+        <form id="createGroupForm" class="space-y-6">
+            
+            <!-- Group Name -->
+            <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Group Name</label>
+                <input type="text" name="name" required 
+                    class="w-full rounded-lg border-slate-300 focus:border-indigo-500 focus:ring-indigo-500"
+                    placeholder="e.g. Quantum App Dev Lab">
+            </div>
+
+            <!-- Description -->
+            <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Description</label>
+                <textarea name="description" rows="4" required 
+                    class="w-full rounded-lg border-slate-300 focus:border-indigo-500 focus:ring-indigo-500"
+                    placeholder="What is this group about?"></textarea>
+            </div>
+
+            <!-- Tags -->
+            <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Tags</label>
+                <input type="text" name="tags" required 
+                    class="w-full rounded-lg border-slate-300 focus:border-indigo-500 focus:ring-indigo-500"
+                    placeholder="Web Dev, AI, Robotics (comma separated)">
+                <p class="text-xs text-slate-500 mt-2">Add 3-5 tags to help people find you.</p>
+            </div>
+
+            <!-- Submit Action -->
+            <div class="pt-2">
+                <button type="submit" class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg shadow-sm transition">
+                    Create Group
+                </button>
+            </div>
+
+        </form>
+    </main>
+
+</div>
+
+<!-- Logic -->
+<script type="module" src="./js/groups.js"></script>
+
+</body>
+</html>

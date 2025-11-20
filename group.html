@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyBuddy · Group</title>
+    
+    <!-- Standard Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+</head>
+<body class="bg-white text-slate-900 antialiased" data-page="group">
+
+<div class="min-h-screen flex flex-col md:flex-row">
+
+    <!-- Sidebar -->
+    <aside class="w-full md:w-64 bg-white border-r border-slate-200 flex-shrink-0">
+        <div class="p-6 h-full flex flex-col justify-between">
+            <div>
+                <!-- Brand -->
+                <div class="flex items-center gap-3 mb-8">
+                    <div class="h-10 w-10 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold">SB</div>
+                    <div>
+                        <h1 class="font-bold text-lg">StudyBuddy</h1>
+                        <p class="text-xs text-slate-500">Connected campuses</p>
+                    </div>
+                </div>
+
+                <!-- Nav -->
+                <nav class="space-y-1">
+                    <a href="dashboard.html" data-nav="dashboard" class="block px-3 py-2 rounded-md text-slate-600 hover:bg-slate-50 hover:text-indigo-600 transition">Dashboard</a>
+                    <a href="my-groups.html" data-nav="my-groups" class="block px-3 py-2 rounded-md text-slate-600 hover:bg-slate-50 hover:text-indigo-600 transition">My Groups</a>
+                    <a href="groups.html" data-nav="groups" class="block px-3 py-2 rounded-md text-slate-600 hover:bg-slate-50 hover:text-indigo-600 transition">Join Groups</a>
+                    <a href="create-group.html" data-nav="create-group" class="block px-3 py-2 rounded-md text-slate-600 hover:bg-slate-50 hover:text-indigo-600 transition">Create Group</a>
+                    <a href="profile.html" data-nav="profile" class="block px-3 py-2 rounded-md text-slate-600 hover:bg-slate-50 hover:text-indigo-600 transition">Profile</a>
+                </nav>
+            </div>
+
+            <button id="signOutButton" onclick="logout()" class="mt-6 w-full text-left px-3 py-2 text-sm text-slate-500 hover:text-slate-800 transition">
+                Sign out
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-6 md:p-10 overflow-y-auto">
+        
+        <!-- Group Header -->
+        <div id="groupHeader" class="mb-8 border-b border-slate-200 pb-8">
+            <div class="flex flex-col md:flex-row justify-between items-start gap-6">
+                <div class="flex-1">
+                    <h1 id="groupName" class="text-3xl font-bold text-slate-900">Loading...</h1>
+                    <p id="groupDescription" class="text-slate-600 mt-2 text-lg leading-relaxed">Fetching details...</p>
+                    <div id="groupTags" class="mt-4 flex flex-wrap gap-2"></div>
+                </div>
+                
+                <div class="flex flex-col items-end gap-4 min-w-[180px]">
+                    <div class="text-right">
+                        <div class="text-2xl font-bold text-slate-900" id="memberCount">0</div>
+                        <div class="text-xs text-slate-500 uppercase font-semibold tracking-wide">Members</div>
+                    </div>
+                    <div class="text-xs text-slate-400" id="createdDate">Created —</div>
+                    
+                    <div class="flex gap-2 w-full justify-end">
+                        <button id="joinGroupButton" class="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg transition shadow-sm">
+                            Join Group
+                        </button>
+                        <button id="leaveGroupButton" class="px-5 py-2 border border-slate-300 hover:bg-red-50 hover:text-red-600 hover:border-red-200 text-slate-600 font-medium rounded-lg transition">
+                            Leave
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <!-- Main Feed -->
+            <div class="lg:col-span-2 space-y-8">
+                
+                <!-- Create Post Form -->
+                <div class="bg-slate-50 border border-slate-200 rounded-xl p-6">
+                    <h3 class="font-bold text-lg text-slate-800 mb-4">Start a discussion</h3>
+                    <form id="createPostForm" class="space-y-4">
+                        <div>
+                            <input type="text" name="title" required placeholder="Title" 
+                                class="w-full rounded-lg border-slate-300 focus:border-indigo-500 focus:ring-indigo-500">
+                        </div>
+                        <div>
+                            <textarea name="content" rows="3" required placeholder="Share updates or ask a question..." 
+                                class="w-full rounded-lg border-slate-300 focus:border-indigo-500 focus:ring-indigo-500"></textarea>
+                        </div>
+                        <div class="flex justify-end">
+                            <button type="submit" class="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg shadow-sm transition">
+                                Post Update
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Posts Feed -->
+                <div>
+                    <h3 class="font-bold text-xl text-slate-900 mb-4">Threads</h3>
+                    <div id="groupPosts" class="space-y-6">
+                        <!-- JS will populate posts here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Sidebar: Activity -->
+            <div class="space-y-6">
+                <div class="border border-slate-200 rounded-xl p-6">
+                    <h3 class="font-bold text-slate-800 mb-4">Latest Activity</h3>
+                    <div id="recentComments" class="space-y-4 text-sm text-slate-600">
+                        <!-- JS will populate comments here -->
+                        <p class="text-slate-400 italic">No recent activity.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+</div>
+
+<!-- Logic -->
+<script type="module" src="./js/groups.js"></script>
+
+</body>
+</html>

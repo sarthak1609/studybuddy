@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyBuddy · Onboarding</title>
+    
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+</head>
+<body class="bg-white text-slate-900 antialiased" data-page="onboarding">
+
+    <main class="max-w-4xl mx-auto px-6 py-16">
+        
+        <div class="text-center mb-12">
+            <h1 class="text-3xl font-bold mb-3">Tell us what excites you</h1>
+            <p class="text-slate-600">Select up to 5 interests to personalize your experience.</p>
+        </div>
+
+        <div class="flex flex-col md:flex-row gap-10">
+            
+            <!-- Left: Selection Grid -->
+            <div class="flex-1">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="font-bold text-lg">Popular Topics</h2>
+                </div>
+                
+                <!-- Populated by JS -->
+                <div id="interestGrid" class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                    <div class="col-span-full text-center text-slate-400 py-8">Loading topics...</div>
+                </div>
+            </div>
+
+            <!-- Right: Summary Card -->
+            <div class="w-full md:w-80 shrink-0">
+                <div class="bg-slate-50 border border-slate-200 rounded-xl p-6 sticky top-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="font-bold text-slate-800">Your Vibe</h3>
+                        <span id="selectedCount" class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2 py-1 rounded-full">0/5</span>
+                    </div>
+
+                    <div id="selectedInterests" class="flex flex-wrap gap-2 mb-6 min-h-[40px]">
+                        <span class="text-sm text-slate-400 italic">Tap topics to add them here.</span>
+                    </div>
+
+                    <button id="saveInterestsBtn" disabled 
+                        class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2.5 rounded-lg transition shadow-sm disabled:opacity-50 disabled:cursor-not-allowed">
+                        Save & Continue
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Logic -->
+    <script type="module" src="./js/auth.js"></script>
+</body>
+</html>

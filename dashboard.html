@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyBuddy · Dashboard</title>
+    
+    <!-- Standard Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+</head>
+<body class="bg-white text-slate-900 antialiased" data-page="dashboard">
+
+<div class="min-h-screen flex flex-col md:flex-row">
+
+    <!-- Sidebar -->
+    <aside class="w-full md:w-64 bg-white border-r border-slate-200 flex-shrink-0">
+        <div class="p-6 h-full flex flex-col justify-between">
+            <div>
+                <!-- Brand -->
+                <div class="flex items-center gap-3 mb-8">
+                    <div class="h-10 w-10 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold">SB</div>
+                    <div>
+                        <h1 class="font-bold text-lg">StudyBuddy</h1>
+                        <p class="text-xs text-slate-500">Connected campuses</p>
+                    </div>
+                </div>
+
+                <!-- Navigation -->
+                <nav class="space-y-1">
+                    <a href="dashboard.html" data-nav="dashboard" class="block px-3 py-2 rounded-md bg-indigo-50 text-indigo-700 font-medium">Dashboard</a>
+                    <a href="my-groups.html" data-nav="my-groups" class="block px-3 py-2 rounded-md text-slate-600 hover:bg-slate-50 hover:text-indigo-600 transition">My Groups</a>
+                    <a href="groups.html" data-nav="groups" class="block px-3 py-2 rounded-md text-slate-600 hover:bg-slate-50 hover:text-indigo-600 transition">Join Groups</a>
+                    <a href="create-group.html" data-nav="create-group" class="block px-3 py-2 rounded-md text-slate-600 hover:bg-slate-50 hover:text-indigo-600 transition">Create Group</a>
+                    <a href="profile.html" data-nav="profile" class="block px-3 py-2 rounded-md text-slate-600 hover:bg-slate-50 hover:text-indigo-600 transition">Profile</a>
+                </nav>
+            </div>
+
+            <button id="signOutButton" onclick="logout()" class="mt-6 w-full text-left px-3 py-2 text-sm text-slate-500 hover:text-slate-800 transition">
+                Sign out
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-6 md:p-10 overflow-y-auto">
+        
+        <!-- Welcome Header -->
+        <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
+            <div>
+                <h1 class="text-2xl font-bold text-slate-900">Welcome back, <span id="dashboardUserName" class="text-indigo-600">Student</span></h1>
+                <p class="text-slate-500 mt-1">Here's what's happening in your groups today.</p>
+            </div>
+            <div class="flex gap-3">
+                <a href="create-group.html" class="px-4 py-2 border border-slate-200 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-50 transition">Create Group</a>
+                <a href="groups.html" class="px-4 py-2 bg-indigo-600 text-white rounded-lg text-sm font-medium hover:bg-indigo-700 shadow-sm transition">Discover</a>
+            </div>
+        </header>
+
+        <!-- Stats / Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+            
+            <!-- Recommended Panel -->
+            <div class="border border-slate-200 rounded-xl p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="font-bold text-lg text-slate-800">Recommended</h3>
+                    <span id="recommendedCount" class="bg-indigo-50 text-indigo-700 text-xs font-bold px-2.5 py-1 rounded-full">0</span>
+                </div>
+                <div id="recommendedGroups" class="space-y-3">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+            <!-- Trending Panel -->
+            <div class="border border-slate-200 rounded-xl p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="font-bold text-lg text-slate-800">Trending Now</h3>
+                    <span id="trendingCount" class="bg-slate-100 text-slate-600 text-xs font-bold px-2.5 py-1 rounded-full">0</span>
+                </div>
+                <div id="trendingGroups" class="space-y-3">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Content Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            
+            <!-- Feed -->
+            <div class="lg:col-span-2 border border-slate-200 rounded-xl p-6">
+                <h3 class="font-bold text-lg text-slate-800 mb-4">Recent Activity</h3>
+                <div id="recentPosts" class="space-y-4">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+            <!-- My Groups Sidebar -->
+            <div class="border border-slate-200 rounded-xl p-6 h-fit">
+                <h3 class="font-bold text-lg text-slate-800 mb-4">Your Groups</h3>
+                <div id="yourGroups" class="space-y-3">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+</div>
+
+<!-- Logic -->
+<script type="module" src="./js/dashboard.js"></script>
+<!-- <script type="module" src="./js/dashboard.js"></script> -->
+</body>
+</html>

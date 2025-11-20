@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyBuddy · Login</title>
+    
+    <!-- Standard Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+</head>
+
+<body class="bg-white text-slate-800 antialiased">
+
+    <!-- Nav -->
+    <nav class="border-b border-slate-100">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="bg-indigo-600 text-white font-bold rounded h-10 w-10 flex items-center justify-center text-xl">SB</div>
+                <span class="font-bold text-xl tracking-tight">StudyBuddy</span>
+            </div>
+            <a href="signup.html" class="text-sm font-medium text-indigo-600 hover:text-indigo-700">Create account</a>
+        </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto px-6 py-16 flex flex-col md:flex-row items-center gap-12">
+        
+        <!-- Hero Section -->
+        <div class="flex-1 space-y-6">
+            <span class="inline-block bg-indigo-50 text-indigo-700 text-sm font-medium px-3 py-1 rounded-full">
+                New: Smart interest matching
+            </span>
+            
+            <h1 class="text-4xl md:text-5xl font-bold text-slate-900">
+                Find your perfect <span class="text-indigo-600">StudyBuddy</span> community.
+            </h1>
+            
+            <p class="text-lg text-slate-600 leading-relaxed">
+                Discover students across every branch, share knowledge, and build mind-blowing projects together.
+            </p>
+
+            <div class="grid grid-cols-2 gap-4 pt-4">
+                <div class="p-5 border border-slate-200 rounded-xl bg-slate-50">
+                    <div class="text-2xl font-bold text-slate-900">450+</div>
+                    <div class="text-slate-500 text-sm">Active groups</div>
+                </div>
+                <div class="p-5 bg-indigo-600 text-white rounded-xl shadow-md">
+                    <div class="text-2xl font-bold">1200+</div>
+                    <div class="text-indigo-100 text-sm">Weekly conversations</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Login Box -->
+        <div class="flex-1 w-full max-w-md">
+            <div class="bg-white border border-slate-200 rounded-xl p-8 shadow-lg">
+                <h2 class="text-2xl font-bold text-slate-900 mb-6">Sign in</h2>
+                
+                <form id="loginForm" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Email</label>
+                        <input type="email" name="email" required 
+                            class="w-full rounded-lg border-slate-300 focus:border-indigo-500 focus:ring-indigo-500"
+                            placeholder="name@college.edu">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Password</label>
+                        <input type="password" name="password" required 
+                            class="w-full rounded-lg border-slate-300 focus:border-indigo-500 focus:ring-indigo-500"
+                            placeholder="••••••••">
+                    </div>
+
+                    <div class="flex justify-end">
+                        <button type="button" id="forgotBtn" class="text-sm text-indigo-600 hover:underline">
+                            Forgot password?
+                        </button>
+                    </div>
+
+                    <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2.5 rounded-lg transition shadow-sm">
+                        Sign in
+                    </button>
+                </form>
+
+                <p class="mt-6 text-center text-sm text-slate-500">
+                    Don't have an account? <a href="signup.html" class="text-indigo-600 font-medium hover:underline">Join now</a>
+                </p>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Modal -->
+    <div id="resetModal" class="hidden fixed inset-0 bg-slate-900/50 z-50 items-center justify-center p-4">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-md p-6">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-bold text-slate-900">Reset password</h3>
+                <button id="closeModal" class="text-slate-400 hover:text-slate-600 text-2xl leading-none">&times;</button>
+            </div>
+            
+            <form id="forgotPasswordForm" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">Email</label>
+                    <input type="email" required class="w-full rounded-lg border-slate-300 focus:border-indigo-500 focus:ring-indigo-500">
+                </div>
+                <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 rounded-lg">
+                    Send reset link
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Modal interaction
+        const modal = document.getElementById('resetModal');
+        const openBtn = document.getElementById('forgotBtn');
+        const closeBtn = document.getElementById('closeModal');
+
+        function toggleModal(show) {
+            if (show) {
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            } else {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }
+        }
+
+        openBtn.addEventListener('click', () => toggleModal(true));
+        closeBtn.addEventListener('click', () => toggleModal(false));
+
+        // Close on outside click
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) toggleModal(false);
+        });
+    </script>
+
+    <!-- Auth Logic -->
+    <script type="module" src="./js/auth.js"></script>
+</body>
+</html>
