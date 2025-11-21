@@ -95,7 +95,7 @@ const groupCard = (group) => {
             View group
           </a>
           <button data-group="${group.id}" data-action="${isMember ? 'leave' : 'join'}" class="rounded-2xl ${
-            isMember ? 'bg-slate-100 text-slate-600' : 'bg-gradient-to-r from-indigo-500 via-fuchsia-500 to-emerald-400 text-white'
+            isMember ? 'bg-slate-100 text-slate-600' : 'bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg'
           } px-4 py-2 font-semibold shadow-sm transition hover:scale-[1.01]">
             ${isMember ? 'Leave group' : 'Join group'}
           </button>

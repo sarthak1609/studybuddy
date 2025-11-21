@@ -67,12 +67,12 @@ const loadProfile = async () => {
 
 const loadRecommendedGroups = async () => {
   if (!recommendedHost) return;
-  let q = query(collection(db, 'groups'), orderBy('createdAt', 'desc'), limit(6));
+  let q = query(collection(db, 'groups'), orderBy('createdAt', 'desc'));
   if (userProfile?.interests?.length) {
     q = query(
       collection(db, 'groups'),
       where('tags', 'array-contains-any', userProfile.interests.slice(0, 10)),
-      limit(6)
+      limit(3)
     );
   }
   const snapshot = await getDocs(q);
@@ -85,7 +85,7 @@ const loadRecommendedGroups = async () => {
 
 const loadTrendingGroups = async () => {
   if (!trendingHost) return;
-  const snapshot = await getDocs(query(collection(db, 'groups'), limit(12)));
+  const snapshot = await getDocs(query(collection(db, 'groups')));
   const groups = snapshot.docs
     .map((docSnap) => ({ id: docSnap.id, ...docSnap.data() }))
     .sort((a, b) => (b.members?.length ?? 0) - (a.members?.length ?? 0))
@@ -95,29 +95,61 @@ const loadTrendingGroups = async () => {
     ? groups.map(miniGroupCard).join('')
     : '<p class="text-sm text-slate-500">Create the very first trending group!</p>';
 };
-
 const loadRecentPosts = async () => {
   if (!postsHost) return;
-  const snapshot = await getDocs(
-    query(collectionGroup(db, 'posts'), orderBy('createdAt', 'desc'), limit(6))
+
+  // 1. Get groups user has joined
+  const groupsSnap = await getDocs(
+    query(collection(db, 'groups'), where('members', 'array-contains', authUser.uid))
   );
-  const posts = snapshot.docs.map((docSnap) => {
-    const data = docSnap.data();
-    return {
+
+  const joinedGroups = groupsSnap.docs.map((g) => ({ id: g.id, ...g.data() }));
+
+  if (joinedGroups.length === 0) {
+    postsHost.innerHTML =
+      '<p class="text-sm text-slate-500">Join a group to see posts!</p>';
+    return;
+  }
+
+  // 2. Fetch posts inside each group's "posts" subcollection
+  const postPromises = joinedGroups.map(async (group) => {
+    const postsSnap = await getDocs(
+      query(
+        collection(db, `groups/${group.id}/posts`),
+        orderBy('createdAt', 'desc'),
+        limit(6) // fetch few per group to optimize
+      )
+    );
+
+    return postsSnap.docs.map((docSnap) => ({
       id: docSnap.id,
-      ...data,
-      groupId: docSnap.ref.parent.parent.id,
-    };
+      ...docSnap.data(),
+      groupId: group.id,
+    }));
   });
-  postsHost.innerHTML = posts.length
-    ? posts.map(postCard).join('')
-    : '<p class="text-sm text-slate-500">No posts yet. Start the conversation!</p>';
+
+  const postsArrays = await Promise.all(postPromises);
+
+  // 3. Merge posts from all groups
+  let allPosts = postsArrays.flat();
+
+  // 4. Sort all posts globally by createdAt desc
+  allPosts.sort((a, b) => b.createdAt?.seconds - a.createdAt?.seconds);
+
+  // 5. Take only latest 6
+  allPosts = allPosts.slice(0, 6);
+
+  // 6. Render
+  postsHost.innerHTML = allPosts.length
+    ? allPosts.map(postCard).join('')
+    : '<p class="text-sm text-slate-500">No posts from your groups yet.</p>';
 };
+
 
 const loadYourGroups = async () => {
   if (!yourGroupsHost) return;
   const snapshot = await getDocs(
-    query(collection(db, 'groups'), where('members', 'array-contains', authUser.uid), limit(6))
+    query(collection(db, 'groups'), where('members', 'array-contains', authUser.uid))
   );
   const groups = snapshot.docs.map((docSnap) => ({ id: docSnap.id, ...docSnap.data() }));
   yourGroupsHost.innerHTML = groups.length

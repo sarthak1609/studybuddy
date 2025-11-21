@@ -59,16 +59,19 @@
         <!-- Stats / Grid -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
             
-            <!-- Recommended Panel -->
             <div class="border border-slate-200 rounded-xl p-6">
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="font-bold text-lg text-slate-800">Recommended</h3>
-                    <span id="recommendedCount" class="bg-indigo-50 text-indigo-700 text-xs font-bold px-2.5 py-1 rounded-full">0</span>
-                </div>
-                <div id="recommendedGroups" class="space-y-3">
-                    <!-- Populated by JS -->
-                </div>
-            </div>
+    <div class="flex justify-between items-center mb-4">
+        <h3 class="font-bold text-lg text-slate-800">Recommended</h3>
+        <span id="recommendedCount" class="bg-indigo-50 text-indigo-700 text-xs font-bold px-2.5 py-1 rounded-full">0</span>
+    </div>
+
+    <!-- Scrollable container -->
+    <div id="recommendedGroups"
+         class="space-y-3 max-h-64 overflow-y-auto pr-1 scrollbar-thin scrollbar-track-slate-100 scrollbar-thumb-slate-300">
+        <!-- Populated by JS -->
+    </div>
+</div>
+
 
             <!-- Trending Panel -->
             <div class="border border-slate-200 rounded-xl p-6">
@@ -76,7 +79,7 @@
                     <h3 class="font-bold text-lg text-slate-800">Trending Now</h3>
                     <span id="trendingCount" class="bg-slate-100 text-slate-600 text-xs font-bold px-2.5 py-1 rounded-full">0</span>
                 </div>
-                <div id="trendingGroups" class="space-y-3">
+                <div id="trendingGroups" class="space-y-3 max-h-64 overflow-y-auto pr-1 scrollbar-thin scrollbar-track-slate-100 scrollbar-thumb-slate-300">
                     <!-- Populated by JS -->
                 </div>
             </div>
@@ -88,7 +91,7 @@
             <!-- Feed -->
             <div class="lg:col-span-2 border border-slate-200 rounded-xl p-6">
                 <h3 class="font-bold text-lg text-slate-800 mb-4">Recent Activity</h3>
-                <div id="recentPosts" class="space-y-4">
+                <div id="recentPosts" class="space-y-4 max-h-64 overflow-y-auto pr-1 scrollbar-thin scrollbar-track-slate-100 scrollbar-thumb-slate-300">
                     <!-- Populated by JS -->
                 </div>
             </div>
@@ -96,7 +99,7 @@
             <!-- My Groups Sidebar -->
             <div class="border border-slate-200 rounded-xl p-6 h-fit">
                 <h3 class="font-bold text-lg text-slate-800 mb-4">Your Groups</h3>
-                <div id="yourGroups" class="space-y-3">
+                <div id="yourGroups" class="space-y-3 max-h-64 overflow-y-auto pr-1 scrollbar-thin scrollbar-track-slate-100 scrollbar-thumb-slate-300">
                     <!-- Populated by JS -->
                 </div>
             </div>
